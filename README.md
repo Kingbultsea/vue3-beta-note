@@ -1,6 +1,6 @@
 # 4.22的vue3-beta直播演讲笔记记录
 
-#### vue3.0 diff算法改进
+### vue3.0 diff算法改进
 
 ```html
 <div>
@@ -61,7 +61,7 @@ export function render(_ctx, _cache) {
 
 总的来说，动态更新只会关注那些真正变化的东西，跳出visual dom的更新瓶颈，又保持了可以手写render function的灵活性。
 
-#### hoistStatic
+### hoistStatic
 ```html
 <div>
   <span>status</span>
@@ -125,7 +125,7 @@ export function render(_ctx, _cache) {
 把静态的不会动的节点，提升出去，在应用启动的时候会创建一次，然后虚拟节点，在每次渲染的时候会被不停地复用。
 在大应用中，对于内存有一个很大的改进，因为不需要在每次更新创建新的visual，把旧的给销毁掉。
 
-#### 事件侦听器缓存
+### 事件侦听器缓存
 ```html
 <div>
   <span @click="onClick">static</span>
@@ -183,7 +183,7 @@ export function render(_ctx, _cache) {
 }
 ```
 
-#### SSR
+### SSR
 ```html
 <div>
   <span>hello</span>
@@ -203,7 +203,7 @@ export function ssrRender(_ctx, _push, _parent) {
 ```
 如果有一堆静态dom，在服务器中尽可能是字符串，极大提高服务器渲染。
 
-#### 静态节点嵌入过深的优化（hoistStatic优化）
+### 静态节点嵌入过深的优化（hoistStatic优化）
 ```html
 <div>
   <div>
