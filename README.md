@@ -1,6 +1,6 @@
 # 4.22的vue3-beta直播演讲笔记记录
 
-### vue3.0 diff算法改进
+## vue3.0 diff算法改进
 
 ```html
 <div>
@@ -61,7 +61,7 @@ export function render(_ctx, _cache) {
 
 总的来说，动态更新只会关注那些真正变化的东西，跳出visual dom的更新瓶颈，又保持了可以手写render function的灵活性。
 
-### hoistStatic
+## hoistStatic
 ```html
 <div>
   <span>status</span>
@@ -125,7 +125,7 @@ export function render(_ctx, _cache) {
 把静态的不会动的节点，提升出去，在应用启动的时候会创建一次，然后虚拟节点，在每次渲染的时候会被不停地复用。
 在大应用中，对于内存有一个很大的改进，因为不需要在每次更新创建新的visual，把旧的给销毁掉。
 
-### 事件侦听器缓存
+## 事件侦听器缓存
 ```html
 <div>
   <span @click="onClick">static</span>
@@ -183,7 +183,7 @@ export function render(_ctx, _cache) {
 }
 ```
 
-### SSR
+## SSR
 ```html
 <div>
   <span>hello</span>
@@ -203,7 +203,7 @@ export function ssrRender(_ctx, _push, _parent) {
 ```
 如果有一堆静态dom，在服务器中尽可能是字符串，极大提高服务器渲染。
 
-### 静态节点嵌入过深的优化（hoistStatic优化）
+## 静态节点嵌入过深的优化（hoistStatic优化）
 ```html
 <div>
   <div>
@@ -245,7 +245,7 @@ export function render(_ctx, _cache) {
 
 这种情况下直接创建innerHtml，而不需要创建一堆对象把它一个一个渲染出来。
 
-### Tree-shaking
+## Tree-shaking
 ```html
 ```
 当前html为空
@@ -292,7 +292,7 @@ export function render(_ctx, _cache) {
 如果只写一个hello worle，那最终打包出来的大小是13.5kb。还有一个选择性的开关，可以选择对vue2.0 api的支持，但是这个默认是不会被启用的。因为无法分析在运行时你运用到了哪些东西（比如使用options中的api），
 这样的话就意味着，有一部分option API的代码是无论如何都无法tree-shaking的，如果选择tree-shaking掉，那么最小体积可以达到11.75kb。如果所有可选的运行时的东西全部加进来是22.5kb的大小。
 
-### Composition API
+## Composition API
 composition-api.vuejs.org 详细介绍了composition-api有什么用。这是一个新的api,不会影响原来的api使用，甚至可以和原来的api一起使用。第三方库，特别是逻辑库，提供可复用逻辑的时候，尽量使用composition API去提供，
 这个灵活度都会比选项的灵活度要高很多。
 
@@ -317,20 +317,20 @@ export function render(_ctx, _cache) {
 ```
 如果是直接使用render函数的，可以直接使用一个数组，会自动变成一个碎片（_Fragment）
 
-### 组件Teleport
+## 组件Teleport
 可以接受一个disable的参数，比如屏幕宽度，当屏幕宽的时候，该组件可以在外面显示，当窄的时候可以又回到这层树里面。可以多个Teleprot添加内容到container里面。
 
-### 组件Suspense
+## 组件Suspense
 （异步加载的组件，在打包的时候，会打包成单独的js文件存储在static/js文件夹里面，在调用时使用ajax请求回来插入到html中。）
 Suspense可以把一个嵌套的渲染树渲染到屏幕之前，在内存里面先渲染，在渲染的过程中会记录所有存在异步依赖的组件，当所有异步组件都被resolve的之后，才会渲染整棵树到dom去。
 异步依赖可以结合Composition API可以利用一个叫async setup()的选项，如果组件中有一个async setup的函数，那么该组件会被看作是一个异步组件，相当于实现了一红嵌套的异步调动，这是在之前是完全没有办法做的。
 
 
-### TypeScript
+## TypeScript
 vue3是用ts重写的，不管用ts还是js都是有好处（vscode自动补全，类型声明，参数提示）。支持TSX，可以获得props自动保存类型检查等等。
 如果喜欢class component的体验（vue-property-decorator）,还是会支持的，但是不推荐。
 
-### 实验性功能
+## 实验性功能
 比如ts的插件，可以在模板里面获得类型检查，自动补全（@znck vscode插件），原理都是把模板转换成ts，再把ts转换成模板里去。
 
 自定义渲染器API，全局可以使用Vue.render。（Vugel webgl渲染引擎，可以在普通vue应用里面嵌入一个单文件组件，里面用Vue的语法去表达webgl的渲染逻辑，渲染出来的东西是可以正常嵌入在vue应用里面）
